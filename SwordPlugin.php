@@ -286,7 +286,6 @@ class SwordPlugin extends GenericPlugin {
 		$component = $params[0];
 		$componentInstance =& $params[2];
 		if ($component == 'plugins.generic.sword.controllers.grid.SwordDepositPointsGridHandler') {
-			import($component);
 			$componentInstance = new SwordDepositPointsGridHandler($this);
 			return true;
 		}

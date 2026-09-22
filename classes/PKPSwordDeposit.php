@@ -92,7 +92,7 @@ class PKPSwordDeposit {
 		$this->_package->setType($this->_section->getLocalizedIdentifyType());
 		foreach ($publication->getData('authors') as $author) {
 			$creator = $author->getFullName(true);
-			$affiliation = $author->getLocalizedAffiliation();
+			$affiliation = $author->getLocalizedData('affiliation');
 			if (!empty($affiliation)) $creator .= "; $affiliation";
 			$this->_package->addCreator($creator);
 			$this->_package->sac_name_records[] = [
