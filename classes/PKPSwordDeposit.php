@@ -103,6 +103,40 @@ class PKPSwordDeposit {
 				'primary_contact' => ($author->getId() === $publication->getData('primaryContactId'))
 			];
 		}
+
+		$keywords = $publication->getLocalizedData('keywords', $pubLocale);
+		if (is_array($keywords)) {
+			foreach ($keywords as $keyword) {
+				if ($keyword['name']!=null && trim($keyword['name']) !== '') {
+					$this->_package->addSubject($keyword['name']);
+				}
+			}
+		}
+
+		$datePublished = $publication->getData('datePublished');
+		if ($datePublished) {
+			$this->_package->setDateAvailable($datePublished);
+		}
+
+		if ($pubLocale) {
+			$this->_package->setLanguage(str_replace('_', '-', $pubLocale));
+		}
+
+		$copyrightHolder = $publication->getLocalizedData('copyrightHolder', $pubLocale);
+		if (is_string($copyrightHolder) && trim($copyrightHolder) !== '') {
+			$this->_package->setCopyrightHolder($copyrightHolder);
+		}
+
+		$rights = $publication->getLocalizedData('rights', $pubLocale);
+		if (is_string($rights) && trim($rights) !== '') {
+			$this->_package->addRights($rights);
+		}
+		
+		$licenseUrl = $publication->getData('licenseUrl');
+		if ($licenseUrl) {
+			$this->_package->addRights($licenseUrl);
+		}
+
 	}
 
 	/**
